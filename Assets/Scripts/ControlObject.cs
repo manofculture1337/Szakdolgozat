@@ -174,8 +174,6 @@ public class ControlObject : MonoBehaviour
         _input = new VRInput(rightInteractor);
 #endif
 
-        _input = new VRInput(rightInteractor);
-
         _axisLayerMask = LayerMask.GetMask("Axis");
         _spawnableObjectLayerMask = LayerMask.GetMask("SpawnableObject");
         _mainCam = Camera.main;

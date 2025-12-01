@@ -26,7 +26,7 @@ public class FileSender : MonoBehaviour
 
     public void SendFileToAll()
     {
-        SendFileToServer(File.ReadAllBytes("C:/Users/szeke/Downloads/meta_room_mesh.obj"));
+        SendFileToServer(File.ReadAllBytes("FILE PATH"));
     }
 
     public void SendFileToTarget(NetworkConnectionToClient target)

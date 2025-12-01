@@ -2,11 +2,12 @@ using UnityEngine;
 using Mirror;
 using Dummiesman;
 
+
 public class MyOBJLoader : NetworkBehaviour
 {
     private void Start()
     {
-        var objPath = "C:/Users/szeke/Downloads/meta_room_mesh.obj";
+        var objPath = "FILE PATH";
 
         var obj = new OBJLoader().Load(objPath);
         obj.transform.localScale = Vector3.one;

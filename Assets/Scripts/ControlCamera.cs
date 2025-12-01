@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Mirror;
+
 
 public class ControlCamera : MonoBehaviour
 {
