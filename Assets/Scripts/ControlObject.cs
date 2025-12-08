@@ -155,6 +155,8 @@ public class ControlObject : MonoBehaviour
 
     private IInput _input;
 
+    private ChangeDimensions _changeDimensions;
+
 
     private void Start()
     {
@@ -168,6 +170,7 @@ public class ControlObject : MonoBehaviour
 
 #if PC_BUILD
         _input = new PCInput();
+        _changeDimensions = GameObject.FindGameObjectWithTag("Dispatcher").GetComponent<ChangeDimensions>();
 #endif
 
 #if VR_BUILD
@@ -192,6 +195,11 @@ public class ControlObject : MonoBehaviour
 #endif
 
 #if PC_BUILD
+        if (_changeDimensions.IsIn2D())
+        {
+            return;
+        }
+
         if (Input.GetKey(KeyCode.Delete))
         {
             DeleteGameObject();

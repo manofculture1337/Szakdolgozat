@@ -69,21 +69,13 @@ public class VRInput : IInput
 
     public void CheckKeyForModeSwitch(ControlObject controller)
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.X))
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
-            controller.CurrentMode = TransformMode.None;
-        }
-        else if (OVRInput.GetDown(OVRInput.RawButton.Y))
-        {
-            controller.CurrentMode = TransformMode.Move;
-        }
-        else if (OVRInput.GetDown(OVRInput.RawButton.B))
-        {
-            controller.CurrentMode = TransformMode.Rotate;
+            controller.CurrentMode = controller.CurrentMode == TransformMode.None ? TransformMode.Move : TransformMode.None;
         }
         else if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
-            controller.CurrentMode = TransformMode.Scale;
+            controller.CurrentMode = controller.CurrentMode == TransformMode.Rotate ? TransformMode.Scale : TransformMode.Rotate;
         }
     }
 }
