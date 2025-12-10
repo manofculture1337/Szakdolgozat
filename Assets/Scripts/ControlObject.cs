@@ -155,8 +155,6 @@ public class ControlObject : MonoBehaviour
 
     private IInput _input;
 
-    private ChangeDimensions _changeDimensions;
-
 
     private void Start()
     {

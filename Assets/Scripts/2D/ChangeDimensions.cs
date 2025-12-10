@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 
 public class ChangeDimensions : MonoBehaviour
@@ -69,6 +70,8 @@ public class ChangeDimensions : MonoBehaviour
         drawCanvas.SetActive(false);
         _dispatcherCanvas.SetActive(true);
         _isIn2D = false;
+
+        NetworkClient.connection.identity.GetComponent<DrawingManager>().SwitchedTo3D();
     }
 
     public bool IsIn2D()

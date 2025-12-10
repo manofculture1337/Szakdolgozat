@@ -135,6 +135,8 @@ public class DrawingManager : NetworkBehaviour
 
     private bool _isDispatcher;
 
+    private ChangeDimensions _changeDimensions;
+
 
     private void Start()
     {
@@ -173,9 +175,9 @@ public class DrawingManager : NetworkBehaviour
 
             if (_isDispatcher)
             {
-                var dimensionChanger = GameObject.FindGameObjectWithTag("Dispatcher").GetComponent<ChangeDimensions>();
-                dimensionChanger.drawCanvas = canvas;
-                canvas.GetNamedChild("3DButton").GetComponent<Button>().onClick.AddListener(() => dimensionChanger.To3D());
+                _changeDimensions = GameObject.FindGameObjectWithTag("Dispatcher").GetComponent<ChangeDimensions>();
+                _changeDimensions.drawCanvas = canvas;
+                canvas.GetNamedChild("3DButton").GetComponent<Button>().onClick.AddListener(() => _changeDimensions.To3D());
             }
             else
             {
@@ -228,6 +230,11 @@ public class DrawingManager : NetworkBehaviour
         }
 
         if (!_isDispatcher || !isLocalPlayer)
+        {
+            return;
+        }
+
+        if (!_changeDimensions.IsIn2D())
         {
             return;
         }
