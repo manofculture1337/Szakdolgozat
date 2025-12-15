@@ -1,6 +1,6 @@
 using UnityEngine;
 using Mirror;
-
+using Assets.Scripts.CleanArchitecture.Domain;
 
 public class NetworkedObjectControl : NetworkBehaviour
 {
@@ -28,6 +28,19 @@ public class NetworkedObjectControl : NetworkBehaviour
         GameObject obj = Instantiate(TypeToPrefab());
         NetworkServer.Spawn(obj, sender);
         obj.GetComponent<ObjectHandle>().TargetChangeName(sender, _nextObjectType.ToString());
+
+        //RpcSynchronize(obj);
+    }
+
+    [ClientRpc]
+    private void RpcSynchronize(GameObject obj)
+    {
+        var domainManager = GameObject.FindFirstObjectByType<DomainManager>();
+
+        if (domainManager)
+        {
+            domainManager.offsetUsecases?.AddObjectToAnchor(obj);
+        }
     }
 
     [Command]

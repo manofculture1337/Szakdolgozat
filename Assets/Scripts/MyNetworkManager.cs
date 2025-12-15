@@ -1,6 +1,7 @@
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.CleanArchitecture.Entities;
 
 
 public class MyNetworkManager : NetworkManager
@@ -24,7 +25,7 @@ public class MyNetworkManager : NetworkManager
     {
         base.OnStartServer();
 
-        NetworkServer.RegisterHandler<FileChunkMessage>(FindFirstObjectByType<FileSender>().OnReceiveFileChunkFromClient);
+        NetworkServer.RegisterHandler<Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage>(FindFirstObjectByType<FileSender>().OnReceiveFileChunkFromClient);
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
@@ -39,7 +40,13 @@ public class MyNetworkManager : NetworkManager
     {
         base.OnStartClient();
 
-        NetworkClient.RegisterHandler<FileChunkMessage>(FindFirstObjectByType<FileSender>().OnReceiveChunk);
+        var fileSender = FindFirstObjectByType<FileSender>();
+
+        if (fileSender != null)
+        {
+            Debug.Log("Resgistering handler");
+            NetworkClient.RegisterHandler<Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage>(fileSender.OnReceiveChunk);
+        }
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)

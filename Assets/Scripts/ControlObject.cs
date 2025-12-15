@@ -155,6 +155,8 @@ public class ControlObject : MonoBehaviour
 
     private IInput _input;
 
+    private ChangeDimensions _changeDimensions;
+
 
     private void Start()
     {
@@ -366,7 +368,8 @@ public class ControlObject : MonoBehaviour
 #endif
 
 #if VR_BUILD
-        angle = Mathf.Max(Vector3.Dot(_input.GetDelta(), Vector3.right), Vector3.Dot(_input.GetDelta(), Vector3.forward));
+        angle = Vector3.Dot(_input.GetDelta(), _mainCam.transform.right) * 500;
+        _input.SetPrevPosition();
 #endif
 
         _selectedObject.transform.rotation = Quaternion.AngleAxis(angle, axisDirWorld) * _selectedObject.transform.rotation;
@@ -393,10 +396,10 @@ public class ControlObject : MonoBehaviour
 
 #if VR_BUILD
         dir = axisDirWorld;
-        scale = 2.5f;
+        scale = 4f;
 #endif
 
-        float axisDelta = Vector2.Dot(_input.GetDelta(), dir);
+        float axisDelta = Vector3.Dot(_input.GetDelta(), dir);
         _selectedObject.transform.localScale += axisDirWorld * axisDelta * scale;
         _input.SetPrevPosition();
 

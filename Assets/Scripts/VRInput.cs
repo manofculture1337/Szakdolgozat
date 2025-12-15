@@ -49,7 +49,7 @@ public class VRInput : IInput
 
     public Vector3 GetDelta()
     {
-        return _prevPosition - _rightInteractor.Origin;
+        return _rightInteractor.Origin - _prevPosition;
     }
 
     public void SetPrevPosition()

@@ -1,15 +1,15 @@
 using UnityEngine;
 using Mirror;
 using Dummiesman;
+using System.IO;
 
-
-public class MyOBJLoader : NetworkBehaviour
+public static class MyOBJLoader
 {
-    private void Start()
+    static public void Load()
     {
-        var objPath = "FILE PATH";
-
-        var obj = new OBJLoader().Load(objPath);
+        var fileName = "received_file.obj";
+        
+        var obj = new OBJLoader().Load(Path.Combine(Application.persistentDataPath, $"{fileName}"));
         obj.transform.localScale = Vector3.one;
 
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>())

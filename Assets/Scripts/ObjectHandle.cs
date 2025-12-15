@@ -22,12 +22,12 @@ public class ObjectHandle : NetworkBehaviour
     private void Awake()
     {
         _controller = FindFirstObjectByType<ControlObject>();
-        _controller.RegisterObject(gameObject);
+        _controller?.RegisterObject(gameObject);
     }
 
     private void Start()
     {
-        _controller.TrySelectObject(gameObject);
+        _controller?.TrySelectObject(gameObject);
     }
 
     public void RequestAuthority()
@@ -106,7 +106,7 @@ public class ObjectHandle : NetworkBehaviour
 
     private void RecolorListItem(Color newColor)
     {
-        listItem.GetComponent<GameObjectListItemHandle>().SetColor(newColor);
+        listItem?.GetComponent<GameObjectListItemHandle>().SetColor(newColor);
     }
 
     private void RecolorOutline(Color newColor)
@@ -146,7 +146,10 @@ public class ObjectHandle : NetworkBehaviour
     private void OnNameChanged(string oldName, string newName)
     {
         gameObject.name = newName;
-        listItem.text = newName;
+        if (listItem)
+        {
+            listItem.text = newName;
+        }
     }
 
     public void SetObjectColor(Color newColor)
@@ -180,6 +183,6 @@ public class ObjectHandle : NetworkBehaviour
 
     private void OnDestroy()
     {
-        _controller.DeregisterObject(gameObject);
+        _controller?.DeregisterObject(gameObject);
     }
 }

@@ -6,9 +6,11 @@ public class MoveCanvasWithCamera : MonoBehaviour
     [SerializeField]
     private Camera _camera;
 
+    [SerializeField]
     private float _forwardDistance = 4f;
     
-    private float _rightDistance = -4f;
+    [SerializeField]
+    private float _rightDistance = -3f;
 
 
     private void Update()

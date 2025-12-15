@@ -24,19 +24,15 @@ public class FileSender : MonoBehaviour
     private Dictionary<int, List<byte[]>> _files = new Dictionary<int, List<byte[]>>();
 
 
-    public void SendFileToAll()
-    {
-        SendFileToServer(File.ReadAllBytes("FILE PATH"));
-    }
-
     public void SendFileToTarget(NetworkConnectionToClient target)
     {
-        byte[][] chunks = SplitFile(File.ReadAllBytes(_receivedFileName));
+        byte[][] chunks = SplitFile(File.ReadAllBytes(Path.Combine(Application.persistentDataPath, $"{_receivedFileName}")));
+        Debug.Log("Chunks: " + chunks.Length);
         int id = UnityEngine.Random.Range(0, int.MaxValue);
 
         for (int i = 0; i < chunks.Length; i++)
         {
-            FileChunkMessage msg = new FileChunkMessage
+            Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage msg = new Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage
             {
                 fileId = id,
                 totalChunks = chunks.Length,
@@ -45,25 +41,6 @@ public class FileSender : MonoBehaviour
             };
 
             target.Send(msg);
-        }
-    }
-
-    private void SendFileToServer(byte[] file)
-    {
-        byte[][] chunks = SplitFile(file);
-        int id = UnityEngine.Random.Range(0, int.MaxValue);
-
-        for (int i = 0; i < chunks.Length; i++)
-        {
-            FileChunkMessage msg = new FileChunkMessage
-            {
-                fileId = id,
-                totalChunks = chunks.Length,
-                chunkIndex = i,
-                data = chunks[i]
-            };
-
-            NetworkClient.Send(msg);
         }
     }
     
@@ -82,7 +59,7 @@ public class FileSender : MonoBehaviour
         return result;
     }
 
-    public void OnReceiveFileChunkFromClient(NetworkConnectionToClient sender, FileChunkMessage msg)
+    public void OnReceiveFileChunkFromClient(NetworkConnectionToClient sender, Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage msg)
     {
         foreach (var conns in NetworkServer.connections)
         {
@@ -96,20 +73,20 @@ public class FileSender : MonoBehaviour
         NetworkManager.singleton.gameObject.GetComponent<MyNetworkManager>().FileSent();
     }
 
-    public void OnReceiveChunk(FileChunkMessage msg)
+    public void OnReceiveChunk(Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage msg)
     {
         if (!_files.ContainsKey(msg.fileId))
         {
             _files[msg.fileId] = new List<byte[]>(msg.totalChunks);
         }
-
+        Debug.Log("New entry");
         List<byte[]> chunks = _files[msg.fileId];
 
         while (chunks.Count < msg.totalChunks)
         {
             chunks.Add(null);
         }
-
+        Debug.Log("Filled with nulls");
         chunks[msg.chunkIndex] = msg.data;
 
         if (chunks.All(c => c != null))
@@ -117,9 +94,16 @@ public class FileSender : MonoBehaviour
             Debug.Log("File transfer complete! ID:" + msg.fileId);
 
             byte[] file = CombineChunks(chunks);
-            File.Delete(_receivedFileName);
-            File.WriteAllBytes(_receivedFileName, file);
+
+            string path = "";
+
+            path = Path.Combine(Application.persistentDataPath, $"{_receivedFileName}");
+            Debug.Log("File path: " + path);
+            File.Delete(path);
+            File.WriteAllBytes(path, file);
             _files.Remove(msg.fileId);
+            Debug.Log("Succesfully wrote");
+            MyOBJLoader.Load();
         }
     }
 
