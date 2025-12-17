@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Layers/App/ConnectHost.meta
+guid: 98768b227c40b8b4f978901c302e5ae5
+========
+guid: f3293a74e81c8624db4585df0d016e52
+>>>>>>>> origin/feature/WebRTC&Socket:Assets/Layers/App/WebRTCUsecases.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

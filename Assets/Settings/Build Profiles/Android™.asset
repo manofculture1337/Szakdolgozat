@@ -20,10 +20,16 @@ MonoBehaviour:
     rid: 2007001482733551617
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 0
-    m_path: Assets/Scenes/XRScene.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/Mirror.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/AuthMenu.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/XRScene.unity
+  - m_enabled: 0
     m_path: Assets/Scenes/DispatcherScene.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/TutorialScene.unity
   m_ScriptingDefines:
   - VR_BUILD
   m_PlayerSettingsYaml:
@@ -175,6 +181,12 @@ MonoBehaviour:
         type: 3}'
     - line: '|   - {fileID: 11400000, guid: 51a1071ac9f3d264d99244f99c048ce1, type:
         2}'
+    - line: '|   - {fileID: 11400000, guid: d934882cceceee24c9defca2da41d372, type:
+        2}'
+    - line: '|   - {fileID: -4298266041084551677, guid: a045f1244498ef242b9a9d4dfbb1f017,
+        type: 2}'
+    - line: '|   - {fileID: 9111932547441643388, guid: 6324b670dbddeea46a9f6bf8a3a56a53,
+        type: 2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   m_HolographicPauseOnTrackingLoss: 1'
@@ -1003,7 +1015,7 @@ MonoBehaviour:
         m_ExportAsGoogleAndroidProject: 0
         m_DebugSymbolLevel: 1
         m_DebugSymbolFormat: 5
-        m_CurrentDeploymentTargetId: 2G0YC1ZG2404RN
+        m_CurrentDeploymentTargetId: 2G0YC1ZF9P05HF
         m_BuildType: 2
         m_LinkTimeOptimization: 0
         m_BuildAppBundle: 0

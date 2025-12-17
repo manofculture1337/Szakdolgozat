@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/ServerScene.unity.meta
+guid: 880e546d2346eef48a9c06d6b40cbcb9
+========
+guid: 2a764a3e6e063ae46a71b9c9b3da5984
+>>>>>>>> origin/feature/WebRTC&Socket:Assets/Scenes/WebRTCTest/WebRTCMultiClientViewerScene.unity.meta
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

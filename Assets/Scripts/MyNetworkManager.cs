@@ -18,6 +18,8 @@ public class MyNetworkManager : NetworkManager
 
     private Dictionary<NetworkConnectionToClient, Color> _assignedColors = new Dictionary<NetworkConnectionToClient, Color>();
 
+    private FileSender _fileSender;
+
     private bool _fileSent = false;
 
 
@@ -25,7 +27,8 @@ public class MyNetworkManager : NetworkManager
     {
         base.OnStartServer();
 
-        NetworkServer.RegisterHandler<Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage>(FindFirstObjectByType<FileSender>().OnReceiveFileChunkFromClient);
+        _fileSender = new FileSender();
+        NetworkServer.RegisterHandler<Assets.Scripts.CleanArchitecture.Entities.FileChunkMessage>(_fileSender.OnReceiveFileChunkFromClient);
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn)
@@ -55,7 +58,8 @@ public class MyNetworkManager : NetworkManager
 
         if (_fileSent)
         {
-            FindFirstObjectByType<FileSender>().SendFileToTarget(conn);
+            //FindFirstObjectByType<FileSender>().SendFileToTarget(conn);
+            _fileSender.SendFileToTarget(conn);
         }
     }
 

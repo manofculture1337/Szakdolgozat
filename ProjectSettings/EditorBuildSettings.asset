@@ -6,8 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Mirror.unity
+    guid: ac4a109b480d86248bbf20875a866077
+  - enabled: 1
+    path: Assets/Scenes/AuthMenu.unity
+    guid: db39bc79d067e8e4c87f62d5db9805c1
+  - enabled: 1
     path: Assets/Scenes/DispatcherScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/WebRTCTest/WebRTCMultiClientStreamerScene.unity
+    guid: 468b7e6e2f0044d4f9e2ba13511a9a8a
+  - enabled: 1
+    path: Assets/Scenes/WebRTCTest/WebRTCMultiClientViewerScene.unity
+    guid: 880e546d2346eef48a9c06d6b40cbcb9
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: 362943a3b43468d45b43a5ab2230a232
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: d934882cceceee24c9defca2da41d372, type: 2}
