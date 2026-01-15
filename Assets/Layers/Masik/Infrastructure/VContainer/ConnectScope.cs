@@ -9,7 +9,7 @@ public class ConnectScope: LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.RegisterComponentInHierarchy<ConnectView>();
-        builder.RegisterComponentInHierarchy<MyNetworkManager>();
+        //builder.RegisterComponentInHierarchy<MyNetworkManager>();
 
         builder.Register<WebSocketClientService>(Lifetime.Scoped);
         builder.Register<WebSocketStreamingClientService>(Lifetime.Scoped);

@@ -25,8 +25,8 @@ public class ConnectPresenter : MonoBehaviour
     [Inject]
     private WebSocketStreamingClientService _streamingService;
 
-    [Inject]
-    private MyNetworkManager myNetworkManager;
+    /*[Inject]
+    private MyNetworkManager myNetworkManager;*/
 
     [Inject]
     void Awake()
@@ -61,7 +61,7 @@ public class ConnectPresenter : MonoBehaviour
 
     public void SetToOnline(/*INetworkManager manager*/)
     {
-        SceneManager.LoadScene("AuthMenu");
+        //SceneManager.LoadScene("AuthMenu");
         //_connectUseCase.SetToOnline(manager);
     }
 
