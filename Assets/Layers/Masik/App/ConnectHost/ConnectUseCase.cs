@@ -6,6 +6,11 @@ public class ConnectUseCase
     //private INetworkManager _networkManager;
     private MyNetworkManager myNetworkManager;
 
+    public ConnectUseCase(MyNetworkManager networkmanager)
+    {
+        myNetworkManager = networkmanager;
+    }
+
     public void Connect(string ip, string port, GameObject gameObject)
     {
         TelepathyTransport telepathy = gameObject.AddComponent<TelepathyTransport>();
@@ -17,10 +22,13 @@ public class ConnectUseCase
         }
         myNetworkManager.networkAddress = ip;
         myNetworkManager.StartClient();
+        myNetworkManager.ChangeSceneToView();
         //_networkManager.Connect(ip, port);
     }
     public void StartHost(string ip, string port)
     {
+        myNetworkManager.StartClient();
+        myNetworkManager.ChangeSceneToStream();
         //_networkManager.StartServerFromInput(ip, port);
     }
 

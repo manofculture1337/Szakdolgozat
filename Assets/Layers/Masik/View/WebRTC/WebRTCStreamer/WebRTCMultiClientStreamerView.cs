@@ -7,7 +7,7 @@ using VContainer;
 
 public class WebRTCMultiClientStreamerView : MonoBehaviour
 {
-    [Inject]
+    [SerializeField]
     private WebRTCMultiClientStreamerPresenter _presenter;
 
     [SerializeField]

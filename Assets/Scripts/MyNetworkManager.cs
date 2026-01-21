@@ -2,7 +2,7 @@ using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.CleanArchitecture.Entities;
-
+using UnityEngine.SceneManagement;
 
 public class MyNetworkManager : NetworkManager
 {
@@ -98,5 +98,17 @@ public class MyNetworkManager : NetworkManager
     public void FileSent()
     {
         _fileSent = true;
+    }
+
+    public void ChangeSceneToStream()
+    {
+        //Destroy(GameObject.Find("[BuildingBlock] Camera Rig"));
+        SceneManager.LoadScene("XRScene");
+    }
+
+    public void ChangeSceneToView()
+    {
+        //Destroy(GameObject.Find("[BuildingBlock] Camera Rig"));
+        SceneManager.LoadScene("DispatcherScene");
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MovePlaneWithCamera : MonoBehaviour
 {
-    [SerializeField]
+    /*[SerializeField]*/
     private Camera _camera;
 
     [SerializeField]
@@ -12,6 +12,11 @@ public class MovePlaneWithCamera : MonoBehaviour
     [SerializeField]
     private float _rightDistance = -4f;
 
+
+    private void Start()
+    {
+        _camera = GameObject.Find("CenterEyeAnchor").GetComponent<Camera>();
+    }
 
     private void Update()
     {

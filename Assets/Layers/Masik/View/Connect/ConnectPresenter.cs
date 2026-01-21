@@ -9,7 +9,8 @@ public class ConnectPresenter : MonoBehaviour
     private SynchronizationContext _mainThreadContext;
 
     private ConnectUseCase _connectUseCase;
-
+    [SerializeField]
+    private MyNetworkManager myNetworkManager;
 
     public event ConnectionStateChange ConnectionStateChanged;
     private WebSocketClientUsecase _websocketusecase;
@@ -34,6 +35,7 @@ public class ConnectPresenter : MonoBehaviour
         _documentationUseCase= new DocumentationUseCase(logger);
         _websocketusecase = new WebSocketClientUsecase(_service);
         _streamingusecase = new WebSocketStreamingClientUsecase(_streamingService, _service);
+        _connectUseCase = new ConnectUseCase(myNetworkManager);
     }
 
     void Start()
@@ -54,9 +56,9 @@ public class ConnectPresenter : MonoBehaviour
 
     public void StartHost(string ip, string port)
     {
-        /*_connectUseCase.StartHost(ip, port);
+        _connectUseCase.StartHost(ip, port);
         _websocketusecase.Connect(ip, "8080");
-        _documentationUseCase.loggerSetup(Application.persistentDataPath);*/
+        //_documentationUseCase.loggerSetup(Application.persistentDataPath);
     }
 
     public void SetToOnline(/*INetworkManager manager*/)

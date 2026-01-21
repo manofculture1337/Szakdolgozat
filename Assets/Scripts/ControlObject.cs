@@ -174,6 +174,7 @@ public class ControlObject : MonoBehaviour
 #endif
 
 #if VR_BUILD
+        rightInteractor = GameObject.Find("RightInteractions/Interactors/Controller/ControllerRayInteractor").GetComponent<RayInteractor>();
         _input = new VRInput(rightInteractor);
 #endif
 

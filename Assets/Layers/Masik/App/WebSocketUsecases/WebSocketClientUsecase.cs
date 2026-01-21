@@ -7,7 +7,7 @@ public class WebSocketClientUsecase
     [Inject]
     public WebSocketClientUsecase(WebSocketClientService webSocketClientService)
     {
-        this._webSocketClientService = webSocketClientService;
+        this._webSocketClientService = new WebSocketClientService();
     }
     public int Connect(string serverIp, string serverPort)
     {

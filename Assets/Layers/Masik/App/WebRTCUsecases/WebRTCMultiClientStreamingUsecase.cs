@@ -14,9 +14,9 @@ public class WebRTCMultiClientStreamingUsecase
     [Inject]
     public WebRTCMultiClientStreamingUsecase(WebSocketClientService webSocketClientService, WebSocketStreamingClientService webSocketStreamingClientService, WebRTCStreamerMessageHandlerService webRTCStreamerMessageHandlerService)
     {
-        this._webSocketClientService = webSocketClientService;
-        this._webSocketStreamingClientService = webSocketStreamingClientService;
-        this._webRTCStreamerMessageHandlerService = webRTCStreamerMessageHandlerService;
+        this._webSocketClientService = new WebSocketClientService();
+        this._webSocketStreamingClientService = new WebSocketStreamingClientService();
+        this._webRTCStreamerMessageHandlerService = new WebRTCStreamerMessageHandlerService();
         //this._webRTCStreamerService = WebRTCStreamerService.Instance;
         this._webRTCStreamerMessageHandlerService.SetServices(this._webSocketClientService, this._webSocketStreamingClientService);
         this._webSocketStreamingClientService.SetNewVersion(true);

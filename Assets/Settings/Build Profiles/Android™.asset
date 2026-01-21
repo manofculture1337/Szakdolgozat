@@ -22,13 +22,13 @@ MonoBehaviour:
   m_Scenes:
   - m_enabled: 1
     m_path: Assets/Scenes/Mirror.unity
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/AuthMenu.unity
   - m_enabled: 1
     m_path: Assets/Scenes/XRScene.unity
-  - m_enabled: 0
-    m_path: Assets/Scenes/DispatcherScene.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/DispatcherScene.unity
+  - m_enabled: 0
     m_path: Assets/Scenes/TutorialScene.unity
   m_ScriptingDefines:
   - VR_BUILD

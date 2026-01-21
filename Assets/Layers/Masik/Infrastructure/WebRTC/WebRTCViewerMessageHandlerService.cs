@@ -18,7 +18,7 @@ public class WebRTCViewerMessageHandlerService
         if (_instance == null)
         {
             _instance = new WebRTCViewerMessageHandlerService();
-            _instance._webSocketClientService = webSocketClientService;
+            _instance._webSocketClientService = new WebSocketClientService();
             _instance._webSocketStreamingClientService = webSocketStreamingClientService;
             _instance.SubscribeToWebScoketMessages();
             _instance.SubscribeToWebRTCViewerMessages();

@@ -9,9 +9,9 @@ public class WebSocketStreamingClientUsecase
     [Inject]
     public WebSocketStreamingClientUsecase(WebSocketStreamingClientService webSocketStreamingClientService, WebSocketClientService webSocketClientService)
     {
-        this._service = webSocketStreamingClientService;
-        this._webSocketClientService = webSocketClientService;
-        webSocketStreamingClientService.SetServices( this._webSocketClientService);
+        this._service = new WebSocketStreamingClientService();
+        this._webSocketClientService = new WebSocketClientService();
+        this._service.SetServices( this._webSocketClientService);
     }
     public void ConnectToStreamingAsStreamer()
     {
