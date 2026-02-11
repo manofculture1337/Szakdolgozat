@@ -185,7 +185,7 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Failed to parse viewer ID: " + viewerID);
+            Debug.LogWarning("Failed to parse viewer ID: " + viewerID);
             return false;
         }
     }

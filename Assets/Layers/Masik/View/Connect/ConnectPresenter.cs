@@ -13,9 +13,11 @@ public class ConnectPresenter : MonoBehaviour
     private MyNetworkManager myNetworkManager;
 
     public event ConnectionStateChange ConnectionStateChanged;
+    public event ConnectionStatusChangedHandler StreamingStateChanged;
     private WebSocketClientUsecase _websocketusecase;
     private WebSocketStreamingClientUsecase _streamingusecase;
     private DocumentationUseCase _documentationUseCase;
+    private bool IsStreamer;
 
     [Inject]
     private readonly IDocumentationLogger logger;
@@ -41,25 +43,31 @@ public class ConnectPresenter : MonoBehaviour
     void Start()
     {
         _mainThreadContext = SynchronizationContext.Current;
+        IsStreamer = false;
         _websocketusecase.OnWebSocketStateChange(OnConnectionStateChanged);
+        _streamingusecase.OnConnectionStatusChanged(OnConnectionStatusChanged);
     }
-
     public void Connect(string ip, string port)
     {
         /*_connectUseCase.Connect(ip, port);
         _websocketusecase.Connect(ip, "8080");
         _documentationUseCase.loggerSetup(Application.persistentDataPath);*/
 
+        IsStreamer = false;
         _websocketusecase.Connect(ip, "8080");
         _connectUseCase.Connect(ip, port, gameObject);
     }
 
     public void StartHost(string ip, string port)
     {
+        IsStreamer = true;
         _connectUseCase.StartHost(ip, port);
         _websocketusecase.Connect(ip, "8080");
+
         //_documentationUseCase.loggerSetup(Application.persistentDataPath);
     }
+
+    
 
     public void SetToOnline(/*INetworkManager manager*/)
     {
@@ -71,21 +79,66 @@ public class ConnectPresenter : MonoBehaviour
     {
         SceneManager.LoadScene("TutorialScene");
     }
-
+    private void OnConnectChangedPrivate(WebSocketState state)
+    {
+        Debug.Log("belep");
+        ConnectionStateChanged?.Invoke(state);
+        if (IsStreamer && state==WebSocketState.Open)
+        {
+            Debug.Log("1");
+            _streamingusecase.ConnectToStreamingAsStreamer();
+        }
+        else if(!IsStreamer && state == WebSocketState.Open)
+        {
+            Debug.Log("2");
+            _streamingusecase.ConnectToStreamingAsViewer();
+        }
+    }
     private void OnConnectionStateChanged(WebSocketState state)
     {
         // Notify subscribers about the connection status change
 
         if (SynchronizationContext.Current == _mainThreadContext)
         {
-            ConnectionStateChanged?.Invoke(state);
+            OnConnectChangedPrivate(state);
         }
         else
         {
             _mainThreadContext.Post(_ =>
             {
-                ConnectionStateChanged?.Invoke(state);
+                OnConnectChangedPrivate(state);
             }, null);
+        }
+    }
+    
+    private void OnConnectionStatusChanged(WebSocketEnums.ConnectionStatus status)
+    {
+        if (SynchronizationContext.Current == _mainThreadContext)
+        {
+            var valami = _streamingusecase.GetCurrentConnectionType();
+            StreamingStateChanged?.Invoke(status, valami);
+            SwitchSceneBasedOnStreaming(status, valami);
+        }
+        else
+        {
+            _mainThreadContext.Post(_ =>
+            {
+                var valami = _streamingusecase.GetCurrentConnectionType();
+                StreamingStateChanged?.Invoke(status, valami);
+                SwitchSceneBasedOnStreaming(status, valami);
+            }, null);
+        }
+    }
+    private void SwitchSceneBasedOnStreaming(WebSocketEnums.ConnectionStatus status, WebSocketEnums.ConnectionType connectionType)
+    {
+        if(status==WebSocketEnums.ConnectionStatus.Connected && connectionType == WebSocketEnums.ConnectionType.Streamer)
+        {
+            SceneManager.LoadScene("XRScene");
+        }
+        if (status == WebSocketEnums.ConnectionStatus.Connected && connectionType == WebSocketEnums.ConnectionType.Viewer)
+        {
+            Debug.Log("XD");
+            SceneManager.LoadScene("DispatcherScene");
         }
     }
 }

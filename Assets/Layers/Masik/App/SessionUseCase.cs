@@ -14,14 +14,14 @@ public class SessionUseCase
     public void ChangeToStream()
     {
         //logger.LogToJSON("User choose streaming", LogLevel.User);
-        networkManager.ChangeSceneToStream();
+        //networkManager.ChangeSceneToStream();
         networkManager.HostSession("random");
     }
 
     public void ChangeToView(int id)
     {
         //logger.LogToJSON("User choose viewing", LogLevel.User);
-        networkManager.ChangeSceneToView();
+        //networkManager.ChangeSceneToView();
         networkManager.JoinSession(id);
     }
 

@@ -103,12 +103,12 @@ public class MyNetworkManager : NetworkManager
     public void ChangeSceneToStream()
     {
         //Destroy(GameObject.Find("[BuildingBlock] Camera Rig"));
-        SceneManager.LoadScene("XRScene");
+        //SceneManager.LoadScene("XRScene");
     }
 
     public void ChangeSceneToView()
     {
         //Destroy(GameObject.Find("[BuildingBlock] Camera Rig"));
-        SceneManager.LoadScene("DispatcherScene");
+        //SceneManager.LoadScene("DispatcherScene");
     }
 }
