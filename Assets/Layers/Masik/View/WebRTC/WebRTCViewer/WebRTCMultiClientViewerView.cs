@@ -62,9 +62,11 @@ public class WebRTCMultiClientViewerView : MonoBehaviour
     }
     private void OnVideoReceived(Texture texture)
     {
+        Debug.Log("videoreceived");
         if (_videoStream != null)
         {
             _videoStream.texture = texture;
+            Debug.Log("Texture changed");
         }
     }
     private void Disconnect()

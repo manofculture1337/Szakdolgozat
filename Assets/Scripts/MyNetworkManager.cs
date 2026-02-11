@@ -90,6 +90,18 @@ public class MyNetworkManager : NetworkManager
         _assignedColors.Remove(conn);
     }
 
+    public override void OnClientConnect()
+    {
+        Debug.Log("Client conneted");
+        base.OnClientConnect();
+    }
+
+    public override void OnClientDisconnect()
+    {
+        Debug.Log("Client disconnected");
+        base.OnClientDisconnect();
+    }
+
     public Color GetColor(NetworkConnectionToClient conn)
     {
         return _assignedColors[conn];

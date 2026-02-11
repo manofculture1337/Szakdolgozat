@@ -75,7 +75,22 @@ public class WebRTCStreamerService
         // Add tracks
         RTCRtpSender videoSender = null;
         if (_videoTrack != null)
+        {
             videoSender = pc.AddTrack(_videoTrack);
+            if(_videoTrack.Texture)
+            {
+                OnDebugMessage?.Invoke("Van textura");
+            }else
+            {
+                OnDebugMessage?.Invoke("Nincs textura");
+            }
+            
+        }
+        else
+        {
+            OnDebugMessage?.Invoke("videotrack null");
+        }
+            
 
         if (_audioTrack != null)
             pc.AddTrack(_audioTrack);

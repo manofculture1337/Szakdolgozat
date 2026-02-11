@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.WebRTC;
 using UnityEngine;
 using VContainer;
+using Meta.XR;
 
 public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
 {
@@ -61,7 +62,7 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
     //After pairing up with viewer, connect WebRTC
     private void Connect(string id)
     {
-        if(string.IsNullOrEmpty(id))
+        if (string.IsNullOrEmpty(id))
         {
             if (SynchronizationContext.Current == _mainThreadContext)
             {
@@ -114,10 +115,12 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
 
         if (uint.TryParse(viewerID, out uint viewerIdInt))
         {
-            if(_usecase.IsConnectedTo(viewerIdInt)){
+            if (_usecase.IsConnectedTo(viewerIdInt))
+            {
                 _usecase.RemoveViewer(viewerIdInt);
             }
-            else{
+            else
+            {
                 lastID = viewerID;
                 _usecase.PairUp(viewerIdInt);
             }
@@ -131,10 +134,38 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
     }
     public void SetStream(Camera camera)
     {
+        var gameObject = GameObject.Find("[BuildingBlock] Camera Rig");
 
-        var videoStreamTrack = camera.CaptureStreamTrack(1280, 720);
+        if (gameObject != null)
+        {
+            Debug.Log("gameObject jo");
+        }
+        else
+        {
+            Debug.Log("gameObject nem jo");
+        }
+
+        var texture = gameObject.GetComponent<PassthroughCameraAccess>().GetTexture();
+        
+        if (texture == null)
+        {
+            Debug.Log("Texture nem jo");
+        }
+        if(texture.isReadable)
+        {
+            Debug.Log("Texture nem olvashato");
+        }
+        var t = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+        Graphics.CopyTexture(texture, t);
+        //var videoStreamTrack = camera.CaptureStreamTrack(1280, 720);
         //var videoStreamTrack = _camera.CaptureStreamTrack(640, 360);
+        /*var t = new Texture2D(64, 64);
+        RenderTexture.active = texture;
+        t.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);*/
+        //t.LoadRawTextureData(texture.GetRawTextureData());
+        VideoStreamTrack videoStreamTrack = new VideoStreamTrack(t);
         _usecase.SetVideoTrack(videoStreamTrack);
+        
     }
     private void Log(string message)
     {
