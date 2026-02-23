@@ -26,6 +26,7 @@ public class ConnectView : MonoBehaviour
     [Inject]
     private readonly IObjectResolver _resolver;
 
+
     void Start()
     {
         connectButton.onClick.AddListener(() =>
@@ -38,7 +39,18 @@ public class ConnectView : MonoBehaviour
             {
                 ipAddress = IPField.text;
             }
-            _connectPresenter.Connect(ipAddress, PortField.text);
+
+            string portText;
+            if (string.IsNullOrWhiteSpace(PortField.text))
+            {
+                portText = "7777";
+            }
+            else
+            {
+                portText = PortField.text;
+            }
+
+            _connectPresenter.Connect(ipAddress, portText);
         });
         hostButton.onClick.AddListener(() =>
         {

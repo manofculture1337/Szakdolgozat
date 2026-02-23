@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5480822717826350291}
   - component: {fileID: 1572332702422350847}
   - component: {fileID: 7531655749805620340}
+  - component: {fileID: 6709897177428140120}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -128,3 +129,15 @@ MonoBehaviour:
   plane: {fileID: 4216799681944956599, guid: 1e347d10a0520bd44a84a8c89ad3f937, type: 3}
   tempCamera: {fileID: 4887307123721523438, guid: 88b24bc06af9d1040beaad443e835fa0, type: 3}
   tempPlane: {fileID: 4216799681944956599, guid: b7a1a4248397e34449ea056a8f1178cb, type: 3}
+--- !u!114 &6709897177428140120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6902944791540680679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4766cb94ee82e5c49b0ec232e78479e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::dondestroy

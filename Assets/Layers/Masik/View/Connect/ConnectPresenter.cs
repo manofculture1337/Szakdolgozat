@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using VContainer;
 using WebSocketSharp;
 
+
 public class ConnectPresenter : MonoBehaviour
 {
     private SynchronizationContext _mainThreadContext;
@@ -31,6 +32,9 @@ public class ConnectPresenter : MonoBehaviour
     /*[Inject]
     private MyNetworkManager myNetworkManager;*/
 
+    private string ipAddress = "";
+    private string portText = "";
+
     [Inject]
     void Awake()
     {
@@ -55,7 +59,9 @@ public class ConnectPresenter : MonoBehaviour
 
         IsStreamer = false;
         _websocketusecase.Connect(ip, "8080");
-        _connectUseCase.Connect(ip, port, gameObject);
+        //_connectUseCase.Connect(ip, port, gameObject);
+        ipAddress = ip;
+        portText = port;
     }
 
     public void StartHost(string ip, string port)
@@ -139,6 +145,8 @@ public class ConnectPresenter : MonoBehaviour
         {
             Debug.Log("XD");
             SceneManager.LoadScene("DispatcherScene");
+            Camera.main.clearFlags = CameraClearFlags.Skybox;
+            _connectUseCase.Connect(ipAddress, portText, gameObject);
         }
     }
 }

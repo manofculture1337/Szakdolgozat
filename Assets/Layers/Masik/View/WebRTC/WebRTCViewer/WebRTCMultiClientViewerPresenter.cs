@@ -74,6 +74,6 @@ public class WebRTCMultiClientViewerPresenter : MonoBehaviour
     // This is just a temporary implementation.
     void OnDestroy()
     {
-        _usecase.StopConnection();
+       _usecase.StopConnection();
     }
 }

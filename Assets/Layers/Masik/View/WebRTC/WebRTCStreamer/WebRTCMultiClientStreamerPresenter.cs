@@ -18,6 +18,8 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
     public event Action<string> OnViewerDisconnected;
     public event Action<string> OnPairingFailed;
 
+    private Texture2D rtex;
+
     private WebRTCMultiClientStreamingUsecase _usecase;
 
     private string lastID = "";
@@ -48,6 +50,9 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
     }
     void Update()
     {
+        var texture = gameObject.GetComponent<PassthroughCameraAccess>().GetTexture();
+
+        Graphics.CopyTexture(texture,rtex);
         /*
         if (_ConnectionDone)
         {
@@ -145,25 +150,27 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
             Debug.Log("gameObject nem jo");
         }
 
+
         var texture = gameObject.GetComponent<PassthroughCameraAccess>().GetTexture();
-        
+
         if (texture == null)
         {
             Debug.Log("Texture nem jo");
         }
-        if(texture.isReadable)
+        if (texture.isReadable)
         {
             Debug.Log("Texture nem olvashato");
         }
-        var t = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
-        Graphics.CopyTexture(texture, t);
+        rtex = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+        //var t = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+        //Graphics.CopyTexture(texture, t);
         //var videoStreamTrack = camera.CaptureStreamTrack(1280, 720);
         //var videoStreamTrack = _camera.CaptureStreamTrack(640, 360);
         /*var t = new Texture2D(64, 64);
         RenderTexture.active = texture;
         t.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);*/
         //t.LoadRawTextureData(texture.GetRawTextureData());
-        VideoStreamTrack videoStreamTrack = new VideoStreamTrack(t);
+        VideoStreamTrack videoStreamTrack = new VideoStreamTrack(rtex);
         _usecase.SetVideoTrack(videoStreamTrack);
         
     }
