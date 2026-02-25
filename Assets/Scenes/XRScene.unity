@@ -3642,6 +3642,7 @@ MonoBehaviour:
     RoomPrefabs: []
     SceneJsons: []
     LoadSceneOnStartup: 1
+    EnableHighFidelityScene: 0
     SeatWidth: 0.6
     SceneJson: 
     <TrackerConfiguration>k__BackingField:
@@ -3686,7 +3687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1076905375
 MonoBehaviour:
   m_ObjectHideFlags: 0

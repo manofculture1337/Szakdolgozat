@@ -120,6 +120,7 @@ public class WebRTCService
             },
         };
 
+        
         _peerConnection = new RTCPeerConnection(ref config);
         _peerConnection.OnNegotiationNeeded += Negotiate;
         _peerConnection.OnConnectionStateChange += OnConnectionStateChange;

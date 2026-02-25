@@ -68,7 +68,7 @@ public class WebRTCMultiClientViewerPresenter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        WebRTC.Update();
     }
     // OnDestroy is called when the MonoBehaviour will be destroyed it is used to clean up resources.
     // This is just a temporary implementation.

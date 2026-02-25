@@ -18,12 +18,15 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
     public event Action<string> OnViewerDisconnected;
     public event Action<string> OnPairingFailed;
 
-    private Texture2D rtex;
+    private RenderTexture rtex;
 
     private WebRTCMultiClientStreamingUsecase _usecase;
 
     private string lastID = "";
     private List<uint> _viewerIDs;
+
+    public PassthroughCameraAccess passthroughCameraAccess;
+    public bool canUpdate = false;
 
     [Inject]
     private WebSocketStreamingClientService _webSocketStreamingClientService;
@@ -46,13 +49,24 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
         _usecase.onDebugMessageReceived(Log);
         _usecase.OnConnectionDone(OnConnected);
         _usecase.OnViewerDisconnected(OnDisconnected);
-
+        passthroughCameraAccess = GameObject.Find("[BuildingBlock] Camera Rig").GetComponent<PassthroughCameraAccess>();
+        if (passthroughCameraAccess != null)
+        {
+            Debug.Log("NEM NULL CAMERA");
+        }
+        else Debug.Log("NULL CAMERA");
     }
     void Update()
     {
-        var texture = gameObject.GetComponent<PassthroughCameraAccess>().GetTexture();
+        WebRTC.Update();
+        if (canUpdate)
+        {
+            Debug.Log("EGY_UPDATE");
+            var texture = passthroughCameraAccess.GetTexture();
 
-        Graphics.CopyTexture(texture,rtex);
+            Debug.Log("KETTO_UPDATE");
+            Graphics.Blit(texture, rtex);
+        }
         /*
         if (_ConnectionDone)
         {
@@ -139,39 +153,53 @@ public class WebRTCMultiClientStreamerPresenter : MonoBehaviour
     }
     public void SetStream(Camera camera)
     {
-        var gameObject = GameObject.Find("[BuildingBlock] Camera Rig");
+        passthroughCameraAccess = GameObject.Find("[BuildingBlock] Camera Rig").GetComponent<PassthroughCameraAccess>();
 
-        if (gameObject != null)
+        /*if (gameObject != null)
         {
             Debug.Log("gameObject jo");
         }
         else
         {
             Debug.Log("gameObject nem jo");
-        }
-
-
-        var texture = gameObject.GetComponent<PassthroughCameraAccess>().GetTexture();
-
+        }*/
+        Debug.Log("Passthrough:" + passthroughCameraAccess);
+        Debug.Log("VALAMI:" + passthroughCameraAccess.GetTexture());
+        var texture = passthroughCameraAccess.GetTexture();
+        Debug.Log("GETTEXT");
+        rtex = new RenderTexture(1280, 720, 0, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB);
+        Debug.Log("RENDTEXT NEW");
+        Graphics.Blit(texture, rtex);
+        Debug.Log("BLIT");
         if (texture == null)
         {
             Debug.Log("Texture nem jo");
         }
-        if (texture.isReadable)
+        if (!texture.isReadable)
         {
             Debug.Log("Texture nem olvashato");
         }
-        rtex = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+        //rtex = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
+
+        //Graphics.CopyTexture(texture, rtex);
         //var t = new Texture2D(texture.width, texture.height, UnityEngine.Experimental.Rendering.GraphicsFormat.B8G8R8A8_SRGB, UnityEngine.Experimental.Rendering.TextureCreationFlags.None);
         //Graphics.CopyTexture(texture, t);
-        //var videoStreamTrack = camera.CaptureStreamTrack(1280, 720);
+        var videoStreamTrack = Camera.main.CaptureStreamTrack(1280, 720);
         //var videoStreamTrack = _camera.CaptureStreamTrack(640, 360);
         /*var t = new Texture2D(64, 64);
         RenderTexture.active = texture;
         t.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);*/
         //t.LoadRawTextureData(texture.GetRawTextureData());
-        VideoStreamTrack videoStreamTrack = new VideoStreamTrack(rtex);
+      /*  VideoStreamTrack videoStreamTrack = new VideoStreamTrack(rtex);
+        videoStreamTrack.OnVideoReceived += ((texxxx) => Debug.Log("VIDEORECIVED: "+texxxx.width));
+        Debug.Log("Texture: " + videoStreamTrack.Texture.width + " height: " + videoStreamTrack.Texture.height);*/
+        if (videoStreamTrack==null)
+        {
+            Debug.Log("stream track null kezdetkor");
+        }
+        Debug.Log("Texture: " + videoStreamTrack.Texture.width + " height: " + videoStreamTrack.Texture.height);
         _usecase.SetVideoTrack(videoStreamTrack);
+        canUpdate = true;
         
     }
     private void Log(string message)

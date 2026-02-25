@@ -1641,6 +1641,7 @@ GameObject:
   - component: {fileID: 506989589}
   - component: {fileID: 506989588}
   - component: {fileID: 506989587}
+  - component: {fileID: 506989590}
   m_Layer: 0
   m_Name: '[BuildingBlock] Passthrough'
   m_TagString: Untagged
@@ -1747,6 +1748,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &506989590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506989586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4766cb94ee82e5c49b0ec232e78479e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::dondestroy
 --- !u!1 &517139762
 GameObject:
   m_ObjectHideFlags: 0
@@ -6849,7 +6862,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801977555}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef9a7893e57c04c0db4114c70954b915, type: 3}
   m_Name: 
